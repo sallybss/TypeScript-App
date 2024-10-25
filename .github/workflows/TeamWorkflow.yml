@@ -21,27 +21,4 @@ jobs:
       - name: Build website 
         run:  npm run build 
 
-        # part 2
-
-      - name: FTP Delivery 
-        run:  SamKirkland/FTP-Deploy-Action@4.3.3
-        with: 
-          server: 
-          username:
-          passowrd: 
-          server-dir: 
-          local-dir: dist/
-
-         # part 3
-
-      - name: Install TestCafe
-        run:  npm install -g testcafe
-
-      - name: Update APT 
-        run:  apt-get update 
-
-      - name: Install Chromium
-        run:  apt-get install -y chromium 
-
-      - name: Run tests 
-        run:  testcafe chromium:headless test/* 
+      
