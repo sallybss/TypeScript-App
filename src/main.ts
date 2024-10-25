@@ -10,7 +10,6 @@ interface Todo {
 
 let todos: Todo[] = [];
 
-// HTML element references
 const todoInput = document.getElementById('todo-input') as HTMLInputElement;
 const dateInput = document.getElementById('date-input') as HTMLInputElement;
 const prioritySelect = document.getElementById('priority-select') as HTMLSelectElement;
@@ -18,9 +17,7 @@ const todoForm = document.querySelector('.todo-form') as HTMLFormElement;
 const todoList = document.getElementById('todo-list') as HTMLUListElement;
 const errorMessage = document.getElementById('error-message') as HTMLParagraphElement;
 const clearAllButton = document.getElementById('clear-all') as HTMLButtonElement;
-const toggleAllButton = document.getElementById('toggle-all') as HTMLButtonElement;
 
-// Add a new todo
 const addTodo = (text: string, dueDate?: string, priority?: 'High' | 'Medium' | 'Low'): void => {
   const newTodo: Todo = {
     id: Date.now(),
@@ -38,7 +35,7 @@ const addTodo = (text: string, dueDate?: string, priority?: 'High' | 'Medium' | 
 
 // Render the list of todos
 const renderTodos = (): void => {
-  sortTodosByPriority(); // Ensure todos are sorted before rendering
+  sortTodosByPriority();
   todoList.innerHTML = '';
 
   todos.forEach(todo => {
@@ -92,7 +89,6 @@ const sortTodosByPriority = (): void => {
 const updateActionButtonsVisibility = (): void => {
   const isVisible = todos.length > 0;
   clearAllButton.style.display = isVisible ? 'block' : 'none';
-  toggleAllButton.style.display = isVisible ? 'block' : 'none';
 };
 
 // Add event listener to the form
@@ -159,21 +155,9 @@ const clearAllTodos = (): void => {
   renderTodos();
 };
 
-// Function to toggle the completion status of all todos
-const toggleAllTodos = (): void => {
-  const areAllCompleted = todos.every(todo => todo.completed);
-  todos = todos.map(todo => ({ ...todo, completed: !areAllCompleted }));
-  renderTodos();
-};
-
 // Add event listener to the clear all button
 clearAllButton.addEventListener('click', () => {
   clearAllTodos();
-});
-
-// Add event listener to the toggle all button
-toggleAllButton.addEventListener('click', () => {
-  toggleAllTodos();
 });
 
 // Change background color using color picker
@@ -197,5 +181,5 @@ const initializeColorPicker = (): void => {
 document.addEventListener('DOMContentLoaded', () => {
   initializeColorPicker();
   renderTodos();
-  updateActionButtonsVisibility(); // Ensure action buttons visibility is updated
+  updateActionButtonsVisibility();
 });
