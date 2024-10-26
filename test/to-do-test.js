@@ -1,7 +1,7 @@
 import { Selector } from 'testcafe';
 
-fixture`My Test Suite`
-    .page`http://example.com`;
+fixture`My TO DO test`
+    .page`https://test.sallybss.dk/todo/`;
 
 test('My Test', async t => {
     await t
