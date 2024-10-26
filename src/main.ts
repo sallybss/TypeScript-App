@@ -17,7 +17,11 @@ const todoForm = document.querySelector('.todo-form') as HTMLFormElement;
 const todoList = document.getElementById('todo-list') as HTMLUListElement;
 const errorMessage = document.getElementById('error-message') as HTMLParagraphElement;
 const clearAllButton = document.getElementById('clear-all') as HTMLButtonElement;
+const markAllCompletedButton = document.getElementById('mark-all-completed') as HTMLButtonElement;
 
+
+
+// Add a new todo
 const addTodo = (text: string, dueDate?: string, priority?: 'High' | 'Medium' | 'Low'): void => {
   const newTodo: Todo = {
     id: Date.now(),
@@ -56,15 +60,11 @@ const renderTodos = (): void => {
     addRemoveButtonListener(li, todo.id);
     todoList.appendChild(li);
   });
-
-  // Store todos in localStorage to persist between page reloads
   localStorage.setItem('todos', JSON.stringify(todos));
-
-  // Update the visibility of the action buttons
   updateActionButtonsVisibility();
 };
 
-// Function to sort todos by priority
+// Sort todos by priority
 const sortTodosByPriority = (): void => {
   const priorityOrder: { [key: string]: number } = {
     High: 1,
@@ -85,11 +85,16 @@ const sortTodosByPriority = (): void => {
   });
 };
 
-// Function to update the visibility of the action buttons
+// Update action button visibility
 const updateActionButtonsVisibility = (): void => {
   const isVisible = todos.length > 0;
   clearAllButton.style.display = isVisible ? 'block' : 'none';
 };
+
+const clearAllTodos = (): void => {
+  todos = [];
+  renderTodos();
+}
 
 // Add event listener to the form
 todoForm.addEventListener('submit', (e) => {
@@ -149,16 +154,17 @@ const editTodoTitle = (id: number): void => {
   }
 };
 
-// Function to clear all todos
-const clearAllTodos = (): void => {
-  todos = [];
-  renderTodos();
-};
+// Mark all todos - new function
 
-// Add event listener to the clear all button
-clearAllButton.addEventListener('click', () => {
-  clearAllTodos();
-});
+const markAllCompleted = (): void => {
+  todos = todos.map(todo => ({ ...todo, completed: true }));
+  renderTodos();
+}
+
+// Add event listeners to the buttons
+clearAllButton.addEventListener('click', clearAllTodos);
+markAllCompletedButton.addEventListener('click', markAllCompleted);
+
 
 // Change background color using color picker
 const changeBackgroundColor = (color: string): void => {

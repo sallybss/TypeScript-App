@@ -9,7 +9,6 @@
 </head>
 
 <body>
-
   <div class="container">
     <h1>To-Do List</h1>
     <form class="todo-form">
@@ -21,18 +20,20 @@
         <option value="Medium">Medium</option>
         <option value="Low">Low</option>
       </select>
+      <button id="filter-due-today">Show Due Today</button>
       <button type="submit">Add</button>
-    </form>
 
+    </form>
 
     <p id="error-message">Please enter a todo item</p>
     <ul class="todo-list" id="todo-list"></ul>
 
     <button id="clear-all" style="display: none;">Clear All Todos</button>
+
+    <button id="mark-all-completed">Mark All Completed</button>
+
     <p>Optional: Change background</p><input type="color" id="colorPicker" />
   </div>
-
-
 
   <script type="module" src="/src/main.ts"></script>
 </body>
