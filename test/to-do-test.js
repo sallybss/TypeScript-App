@@ -1,5 +1,5 @@
-import { Selector } from 'testcafe';
+// import { Selector } from 'testcafe';
 
-fixture`My TO DO test`
-    .page`https://test.sallybss.dk/todo/`;
+// fixture`My TO DO test`
+//     .page`https://test.sallybss.dk/todo/`;
 
