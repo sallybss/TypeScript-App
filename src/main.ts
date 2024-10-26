@@ -18,6 +18,7 @@ const todoList = document.getElementById('todo-list') as HTMLUListElement;
 const errorMessage = document.getElementById('error-message') as HTMLParagraphElement;
 const clearAllButton = document.getElementById('clear-all') as HTMLButtonElement;
 const markAllCompletedButton = document.getElementById('mark-all-completed') as HTMLButtonElement;
+const filterDueTodayButton = document.getElementById('filter-due-today') as HTMLButtonElement;
 
 
 
@@ -84,6 +85,58 @@ const sortTodosByPriority = (): void => {
     }
   });
 };
+
+//Show only todos due today 
+const showDueTodayTodos = (): void => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const dueTodayTodos = todos.filter(todo => {
+    if (todo.dueDate) {
+      const todoDate = new Date(todo.dueDate);
+      todoDate.setHours(0, 0, 0, 0);
+      return todoDate.getTime() === today.getTime();
+    }
+    return false;
+  });
+
+  todoList.innerHTML = '';
+  dueTodayTodos.forEach(todo => {
+    const li = document.createElement('li');
+    li.className = 'todo-item';
+    li.innerHTML = `
+       <input type ="checkbox" ${todo.completed ? 'checked' : ''} />
+       <span class = "${todo.completed ? 'completed' : ''}" >${todo.title} </span>
+       ${todo.dueDate ? `<span class="due-date">${todo.dueDate}</span>` : ''}
+       ${todo.priority ? `<span class= "priority ${todo.priority}"> ${todo.priority}</span> ` : ''}
+       <div class="button-container">
+         <button class="edit-button">Edit</button>
+         <button class="remove-button">Remove</button>
+      </div>
+    `;
+
+    addCheckboxListener(li, todo.id);
+    addEditButtonListener(li, todo.id);
+    addRemoveButtonListener(li, todo.id);
+    todoList.appendChild(li);
+  });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Update action button visibility
 const updateActionButtonsVisibility = (): void => {
@@ -164,6 +217,7 @@ const markAllCompleted = (): void => {
 // Add event listeners to the buttons
 clearAllButton.addEventListener('click', clearAllTodos);
 markAllCompletedButton.addEventListener('click', markAllCompleted);
+filterDueTodayButton.addEventListener('click', showDueTodayTodos);
 
 
 // Change background color using color picker
