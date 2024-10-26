@@ -16,32 +16,32 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install dependencies 
-        run:  npm install 
+        run: npm install 
 
       - name: Build website 
-        run:  npm run build 
+        run: npm run build 
 
-        # part 2
+      # part 2
 
       - name: FTP Delivery 
-        run:  SamKirkland/FTP-Deploy-Action@4.3.3
-         with: 
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with: 
           server: ${{ vars.FTP_SERVER }}
-          username:  ${{ secrets.FTP_USERNAME }}
-          passowrd:  ${{ secrets.FTP_PASSWORD }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
           server-dir: test/todo/ # test.sallybss.dk/todo/
           local-dir: dist/
 
-         # part 3
+      # part 3
 
       - name: Install TestCafe
-        run:  npm install -g testcafe
+        run: npm install -g testcafe
 
       - name: Update APT 
-        run:  apt-get update 
+        run: apt-get update 
 
       - name: Install Chromium
-        run:  apt-get install -y chromium 
+        run: apt-get install -y chromium 
 
       - name: Run tests 
-        run:  testcafe chromium:headless test/*
+        run: testcafe chromium:headless test/*
