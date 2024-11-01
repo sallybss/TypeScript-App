@@ -122,22 +122,6 @@ const showDueTodayTodos = (): void => {
   });
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Update action button visibility
 const updateActionButtonsVisibility = (): void => {
   const isVisible = todos.length > 0;
