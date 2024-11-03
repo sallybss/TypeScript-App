@@ -7,7 +7,7 @@ on:
 
 jobs: 
   integration-delivery: 
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     environment: Test
     container: 
       image: node 
@@ -37,6 +37,12 @@ jobs:
       - name: Install TestCafe
         run: npm install -g testcafe
 
+      - name: Update APT 
+        run: apt-get update 
+
+      - name: Install Chromium
+        run: apt-get install -y chromium 
+
       - name: Run tests 
-        run: testcafe safari test/todo-test.js
+        run: testcafe chromium:headless test/*
  
