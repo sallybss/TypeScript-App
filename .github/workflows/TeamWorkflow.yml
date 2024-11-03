@@ -7,7 +7,7 @@ on:
 
 jobs: 
   integration-delivery: 
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     environment: Test
     container: 
       image: node 
